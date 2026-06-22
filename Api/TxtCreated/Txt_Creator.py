@@ -9,6 +9,9 @@ def CreateWithObj(object, fileName):
     try:
         with open(txt_path, "w", encoding="utf-8") as f:
             json.dump(object, f, indent=4, ensure_ascii=False)
+
+        print("json file created successfully")
         return True
-    except:
+    except Exception as e:
+        print(e)
         return False

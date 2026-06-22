@@ -1,6 +1,9 @@
+import os
+
 import requests
 from dataclasses import dataclass
 import logging
+from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
 
@@ -12,8 +15,13 @@ class ApiResult:
 
 def call(url: str) -> ApiResult:
     try:
-        result = requests.get(url, timeout=10)
+        load_dotenv()
+        token = os.getenv("API_TOKEN")
+        headers2 = {
+            "X-Auth-Token": token,
+        }
 
+        result = requests.get(url, headers=headers2)
         result.raise_for_status()
         return ApiResult(
             success=True,
